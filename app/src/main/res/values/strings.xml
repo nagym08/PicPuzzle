@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">PicPuzzle</string>
+    <string name="btn_newGame">New Game</string>
+    <string name="btn_highScores">Highscores</string>
+    <string name="btn_alarmClock">Alarm Clock</string>
+    <string name="btn_quit">Quit</string>
 </resources>

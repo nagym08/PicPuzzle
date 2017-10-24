@@ -4,15 +4,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.obuda.nik.picpuzzle.MainActivity">
+    tools:context="com.obuda.nik.picpuzzle.MainActivity"
+    android:background="#ededed"
+    >
 
-    <TextView
+    <ImageView
+        android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/name_logo"
+        android:layout_marginTop="75dp"
+        />
+
+    <Button
+        android:id="@+id/button_newGame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="75dp"
+        android:width="150dp"
+        android:padding="20dp"
+        android:text="@string/btn_newGame"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/imageView" />
 
+
+    <Button
+        android:id="@+id/button_highScores"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="150dp"
+        android:text="@string/btn_highScores"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_newGame"
+        android:layout_marginTop="10dp"
+        android:padding="20dp"
+         />
+
+    <Button
+        android:id="@+id/button_alarmClock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="150dp"
+        android:text="@string/btn_alarmClock"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_highScores"
+        android:layout_marginTop="10dp"
+        android:padding="20dp"
+        />
+
+    <Button
+        android:id="@+id/button_quit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_quit"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_alarmClock"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:padding="20dp"
+       />
 </android.support.constraint.ConstraintLayout>
