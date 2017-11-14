@@ -4,4 +4,7 @@
     <string name="btn_highScores">Highscores</string>
     <string name="btn_alarmClock">Alarm Clock</string>
     <string name="btn_quit">Quit</string>
+    <string name="highscore_title">High scores</string>
+    <string name="highscore_difficulty">Difficulty:</string>
+    <string name="highscore_item_best_text">Best:</string>
 </resources>

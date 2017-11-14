@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+    
+    <TextView
+        android:id="@+id/highscoreItemPictureName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:textAlignment="textStart"/>
+
+    <TextView
+        android:id="@+id/highscoreItemBestText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:textAlignment="textEnd"
+        android:text="@string/highscore_item_best_text"/>
+
+    <TextView
+        android:id="@+id/highscoreItemBestTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:textAlignment="textEnd"/>
+
+</LinearLayout>
