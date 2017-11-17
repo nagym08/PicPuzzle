@@ -28,14 +28,14 @@ public class GameActivity extends AppCompatActivity {
         button= (Button) findViewById(R.id.newGame_btn);
         final ImageAdapter adapter;
         game=new Game();
-        int numSides=3;
+        Difficulty difficulty=Difficulty.valueOf(getIntent().getStringExtra("difficulty").toUpperCase());
 
-        game.Init(numSides, BitmapFactory.decodeResource(getResources(), R.drawable.logo));
+        game.Init(difficulty, BitmapFactory.decodeResource(getResources(), R.drawable.logo));
         adapter=new ImageAdapter(this,game.ToArray());
 
 
         gridView.setAdapter(adapter);
-        gridView.setNumColumns(numSides);
+        gridView.setNumColumns(difficulty.getValue());
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -51,10 +51,11 @@ public class GameActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                game.Init(3,BitmapFactory.decodeResource(getResources(),R.drawable.logo));
+                game.Init(Difficulty.EASY,BitmapFactory.decodeResource(getResources(),R.drawable.logo));
                 adapter.setTiles(game.ToArray());
                 gridView.invalidateViews();
             }
         });
+
     }
 }

@@ -12,14 +12,16 @@ import java.util.Random;
 
 public class Game {
 
-    //FIXME
-    protected enum DIFFICULTY{toRemove0, toRemove1, toRemove2 }
-
     private final int EMPTY = 100;
 
     private Random mixVar;
     private Tile[][] Table;
     private int side;
+    private Difficulty difficulty;
+
+    public Difficulty getDifficulty(){
+        return this.difficulty;
+    }
 
 
     public Game() {
@@ -150,8 +152,9 @@ public class Game {
         return bitmapsArray;
     }
 
-    public void Init(int side, Bitmap picture) {
-        this.side = side;
+    public void Init(Difficulty difficulty, Bitmap picture) {
+        this.side = difficulty.getValue();
+        this.difficulty=difficulty;
 
         Bitmap[] picturePieces=slicePicture(picture,side);
 
@@ -217,4 +220,5 @@ public class Game {
         return true;
     }
 }
+
 
