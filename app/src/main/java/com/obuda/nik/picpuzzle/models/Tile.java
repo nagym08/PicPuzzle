@@ -21,4 +21,6 @@ public class Tile {
     public  Bitmap getPicture() {
         return this.picture;
     }
+    public  void setPicture(Bitmap bitmap) {this.picture=bitmap;}
+
 }

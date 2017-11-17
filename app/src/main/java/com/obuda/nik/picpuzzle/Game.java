@@ -12,6 +12,9 @@ import java.util.Random;
 
 public class Game {
 
+    //FIXME
+    protected enum DIFFICULTY{toRemove0, toRemove1, toRemove2 }
+
     private final int EMPTY = 100;
 
     private Random mixVar;
@@ -60,7 +63,7 @@ public class Game {
     private int sumInversions() {
         Tile[] array = ToArray();
         int inversions = 0;
-        for (int i = 0; i < array.length; i++) {
+        for (int i = 0; i < side*side; i++) {
             if (array[i].getID() != EMPTY)
                 inversions += countInversions(i, array);
         }
@@ -70,13 +73,13 @@ public class Game {
     private boolean isSolvable() {
         int inversion = sumInversions();
 
-        if (side % 2 == 0)
+        if (side % 2 == 0) {
             try {
                 return (findTile(EMPTY)[0] % 2 == 0) == (inversion % 2 == 0);
             } catch (Exception e) {
             }
-        return false;
-
+        }
+        return inversion%2==0;
     }
 
     private int countInversions(int elementID, Tile[] array) {
@@ -91,10 +94,10 @@ public class Game {
         return inversion;
     }
 
-    private Tile[] ToArray() {
-        Tile[] array = new Tile[side * side];
+    Tile[] ToArray() {
+        Tile[] array = new Tile[(side+1) * side];
         int counter = 0;
-        for (int i = 1; i <= side; i++) {
+        for (int i = 1; i <= side+1; i++) {
             for (int j = 1; j <= side; j++) {
                 array[counter++] = Table[i][j];
             }
@@ -131,8 +134,26 @@ public class Game {
         throw new Exception(); //TODO make custom, NoEmptyNeighbourTile exception?
     }
 
-    public void Init(int side, Bitmap[] picturePieces) {
+    private  Bitmap[] slicePicture(Bitmap picture, int side){
+
+        final Bitmap[] bitmapsArray = new Bitmap[side*side];
+        int widthUnit = picture.getWidth() / side;
+        int heightUnit = picture.getHeight() / side;
+        int id=0;
+
+        for (int i = 0; i < side; i++) {
+            for (int j = 0; j < side; j++) {
+                bitmapsArray[id++]=Bitmap.createBitmap(picture,j*widthUnit,i*heightUnit,widthUnit,heightUnit);
+            }
+        }
+
+        return bitmapsArray;
+    }
+
+    public void Init(int side, Bitmap picture) {
         this.side = side;
+
+        Bitmap[] picturePieces=slicePicture(picture,side);
 
         Tile border = new Tile(0, null);
         int id = 0;
@@ -162,7 +183,7 @@ public class Game {
         // Picture Tiles
         for (int i = 1; i <= side; i++) {
             for (int j = 1; j <= side; j++) {
-                Table[i][j] = new Tile(++id, picturePieces[id]);
+                Table[i][j] = new Tile(id+1, picturePieces[id++]);
             }
         }
         //empty place
@@ -196,3 +217,4 @@ public class Game {
         return true;
     }
 }
+
