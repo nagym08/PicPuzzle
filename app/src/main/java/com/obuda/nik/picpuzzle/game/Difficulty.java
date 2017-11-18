@@ -1,7 +1,7 @@
-package com.obuda.nik.picpuzzle;
+package com.obuda.nik.picpuzzle.game;
 
 /**
- * Created by Admin on 2017. 11. 17..
+ * Created by Dezsi on 2017. 11. 17..
  */
 
 public enum Difficulty {
@@ -9,7 +9,7 @@ public enum Difficulty {
 
     private final int value;
 
-    private Difficulty(int i) {
+    Difficulty(int i) {
         this.value=i;
     }
 

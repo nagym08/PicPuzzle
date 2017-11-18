@@ -1,4 +1,4 @@
-package com.obuda.nik.picpuzzle;
+package com.obuda.nik.picpuzzle.game;
 
 import android.graphics.Bitmap;
 
@@ -63,7 +63,7 @@ public class Game {
     }
 
     private int sumInversions() {
-        Tile[] array = ToArray();
+        Tile[] array = toArray();
         int inversions = 0;
         for (int i = 0; i < side*side; i++) {
             if (array[i].getID() != EMPTY)
@@ -77,7 +77,7 @@ public class Game {
 
         if (side % 2 == 0) {
             try {
-                return (findTile(EMPTY)[0] % 2 == 0) == (inversion % 2 == 0);
+                return (findTile(EMPTY)[0] % 2 != 0) == (inversion % 2 == 0);
             } catch (Exception e) {
             }
         }
@@ -96,7 +96,7 @@ public class Game {
         return inversion;
     }
 
-    Tile[] ToArray() {
+    public Tile[] toArray() {
         Tile[] array = new Tile[(side+1) * side];
         int counter = 0;
         for (int i = 1; i <= side+1; i++) {

@@ -1,5 +1,6 @@
 package com.obuda.nik.picpuzzle;
 
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,14 +11,16 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.obuda.nik.picpuzzle.adapters.ImageAdapter;
-
-import static com.obuda.nik.picpuzzle.R.id.gridView;
+import com.obuda.nik.picpuzzle.game.Difficulty;
+import com.obuda.nik.picpuzzle.game.Game;
+import com.obuda.nik.picpuzzle.game.ImageFactory;
 
 public class GameActivity extends AppCompatActivity {
 
     GridView gridView;
     Button button;
     Game game;
+    Bitmap picture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +32,12 @@ public class GameActivity extends AppCompatActivity {
         final ImageAdapter adapter;
         game=new Game();
         Difficulty difficulty=Difficulty.valueOf(getIntent().getStringExtra("difficulty").toUpperCase());
+        Bitmap pic=BitmapFactory.decodeResource(getResources(),R.drawable.logo);
 
-        game.Init(difficulty, BitmapFactory.decodeResource(getResources(), R.drawable.logo));
-        adapter=new ImageAdapter(this,game.ToArray());
+        picture = ImageFactory.modifyImage(pic,this.getResources().getDisplayMetrics());
+
+        game.Init(difficulty, picture);
+        adapter=new ImageAdapter(this,game.toArray());
 
 
         gridView.setAdapter(adapter);
@@ -41,7 +47,7 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 game.move(adapter.getTiles()[i].getID());
-                adapter.setTiles(game.ToArray());
+                adapter.setTiles(game.toArray());
                 gridView.invalidateViews();
                 if(game.puzzleSolved())
                     Toast.makeText(getBaseContext(),"Nyert",Toast.LENGTH_LONG).show();
@@ -51,8 +57,8 @@ public class GameActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                game.Init(Difficulty.EASY,BitmapFactory.decodeResource(getResources(),R.drawable.logo));
-                adapter.setTiles(game.ToArray());
+                game.Init(game.getDifficulty(),picture);
+                adapter.setTiles(game.toArray());
                 gridView.invalidateViews();
             }
         });
