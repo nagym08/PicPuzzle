@@ -1,9 +1,11 @@
 package com.obuda.nik.picpuzzle.adapters;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -18,10 +20,14 @@ import com.obuda.nik.picpuzzle.models.Tile;
 public class ImageAdapter extends BaseAdapter {
     private Tile[] Tiles;
     private Context context;
+    private int borderWidth;
 
     public ImageAdapter(Context context, Tile[] Tiles){
         this.context=context;
         this.Tiles= Tiles;
+
+        Resources r=context.getResources();
+        this.borderWidth= (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, r.getDisplayMetrics());
     }
 
     public Tile[] getTiles(){
@@ -65,7 +71,8 @@ public class ImageAdapter extends BaseAdapter {
             viewHolder.view.setImageBitmap(Tiles[i].getPicture());
             viewHolder.view.setImageAlpha(255);
             viewHolder.view.setBackgroundColor(Color.parseColor("#000000")); //TODO values/styles.xml border color?
-            viewHolder.view.setPadding(1,1,1,1);
+            viewHolder.view.setPadding(borderWidth,borderWidth,borderWidth,borderWidth);
+
         }
         else{
             int j=0;
