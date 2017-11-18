@@ -34,7 +34,8 @@ public class GameActivity extends AppCompatActivity {
         Difficulty difficulty=Difficulty.valueOf(getIntent().getStringExtra("difficulty").toUpperCase());
         Bitmap pic=BitmapFactory.decodeResource(getResources(),R.drawable.logo);
 
-        picture = ImageFactory.modifyImage(pic,this.getResources().getDisplayMetrics());
+        picture = ImageFactory.modifyImage(pic,this.getResources().getDisplayMetrics(),
+                getResources().getConfiguration().orientation);
 
         game.Init(difficulty, picture);
         adapter=new ImageAdapter(this,game.toArray());
