@@ -46,7 +46,6 @@ public class Game {
     }
 
     private void randomSwap() {
-        Tile temp;
         int i1;
         int j1;
         int i2;
@@ -57,9 +56,13 @@ public class Game {
         i2 = mixVar.nextInt(side) + 1;
         j2 = mixVar.nextInt(side) + 1;
 
-        temp = Table[i1][j1];
-        Table[i1][j1] = Table[i2][j2];
-        Table[i2][j2] = temp;
+        swap(i1,j1,i2,j2);
+    }
+
+    private void swap(int srcX, int srcY, int dstX, int dstY){
+        Tile temp=Table[srcX][srcY];
+        Table[srcX][srcY] = Table[dstX][dstY];
+        Table[dstX][dstY] = temp;
     }
 
     private int sumInversions() {
@@ -218,6 +221,29 @@ public class Game {
             }
         }
         return true;
+    }
+
+    public GameState getGameState(){
+        return new GameState(this.toArray(),this.difficulty);
+    }
+
+    public void loadGameState(GameState state) throws Exception{
+        if(state.getDifficulty()!=this.difficulty){
+            throw new Exception("Incompatible difficulty levels! "+
+                    this.difficulty + " != " +state.getDifficulty() );
+        }else{
+            int id=0;
+
+            for (int i = 1; i <= side ; i++) {
+                for (int j = 1; j <= side ; j++) {
+                    if(Table[i][j].getID()!=state.getTilesOrder()[id]){
+                        int[] coordinates=findTile(state.getTilesOrder()[id]);
+                        swap(i,j,coordinates[0],coordinates[1]);
+                    }
+                    id++;
+                }
+            }
+        }
     }
 }
 
