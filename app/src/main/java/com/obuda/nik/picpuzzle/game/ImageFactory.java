@@ -1,4 +1,5 @@
 package com.obuda.nik.picpuzzle.game;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.util.DisplayMetrics;
 
@@ -8,19 +9,26 @@ import android.util.DisplayMetrics;
 
 public class ImageFactory {
 
-    public  static Bitmap modifyImage(Bitmap bitmap, DisplayMetrics metrics){
+    public  static Bitmap modifyImage(Bitmap bitmap, DisplayMetrics metrics, int orientation){
         float ratio=(float)2/3; //FIXME ratio should depends on difficulty (difficulty ~ 1 / tile size)
         int screenWidth=metrics.widthPixels;
         int screenHeight=metrics.heightPixels;
 
         Bitmap picture;
 
-        int dstHeight = (int) (((float) screenWidth / bitmap.getWidth()) * bitmap.getHeight());
-        picture = Bitmap.createScaledBitmap(bitmap, screenWidth, dstHeight, true);
+        if(orientation== Configuration.ORIENTATION_PORTRAIT) {
+            int dstHeight = (int) (((float) screenWidth / bitmap.getWidth()) * bitmap.getHeight());
+            picture = Bitmap.createScaledBitmap(bitmap, screenWidth, dstHeight, true);
 
-        if(dstHeight>(screenHeight*ratio))
-            picture=Bitmap.createBitmap(picture,0,0,screenWidth,screenHeight*2/3);
+            if (dstHeight > (screenHeight * ratio))
+                picture = Bitmap.createBitmap(picture, 0, 0, screenWidth, (int)(screenHeight * ratio));
+        }
+        else{
+            int dstHeight=(int)(screenHeight*ratio);
+            int dstWidth=(int)((float)bitmap.getWidth()/bitmap.getHeight()*dstHeight);
 
+            picture=Bitmap.createScaledBitmap(bitmap,dstWidth,dstHeight,true);
+        }
         return picture;
     }
 }
