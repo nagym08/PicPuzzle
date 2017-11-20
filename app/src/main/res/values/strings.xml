@@ -8,4 +8,5 @@
     <string name="highscore_difficulty">Difficulty:</string>
     <string name="highscore_item_best_text">Best:</string>
     <string name="btn_mix">Mix it!</string>
+    <string name="alarmClock_switch">Status</string>
 </resources>

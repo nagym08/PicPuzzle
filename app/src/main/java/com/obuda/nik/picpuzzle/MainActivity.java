@@ -18,16 +18,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button highscoreButton = (Button) findViewById(R.id.button_highScores);
-        highscoreButton.setOnClickListener(new View.OnClickListener() {
+        Button highScoreButton = (Button) findViewById(R.id.button_highScores);
+        Button newGameButton= (Button) findViewById(R.id.button_newGame);
+        Button alarmClockButton= (Button) findViewById(R.id.button_alarmClock);
+        Button quitButton= (Button) findViewById(R.id.button_quit);
+
+        highScoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), HighscoreActivity.class);
                 startActivity(intent);
             }
         });
-
-        Button newGameButton= (Button) findViewById(R.id.button_newGame);
 
         newGameButton.setOnClickListener(new View.OnClickListener() {
 
@@ -65,7 +67,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button quitButton= (Button) findViewById(R.id.button_quit);
+        alarmClockButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent alarmClock=new Intent(MainActivity.this,AlarmClockActivity.class);
+                startActivity(alarmClock);
+            }
+        });
+
+
         quitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -2,11 +2,12 @@ package com.obuda.nik.picpuzzle;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
@@ -29,6 +30,14 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        /////////////////////FOR ALARM CLOCK ////////////////////////////
+        /////////////////////////////////////////////////////////////////
+        final Window win= getWindow();
+        win.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+        win.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
+                WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+        ////////////////////////////////////////////////////////////////
 
         final ImageAdapter adapter;
         Difficulty difficulty=Difficulty.valueOf(getIntent().getStringExtra("difficulty").toUpperCase());
