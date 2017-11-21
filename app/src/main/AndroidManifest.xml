@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.obuda.nik.picpuzzle">
 
-
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -22,8 +22,11 @@
         </activity>
         <activity android:name=".HighscoreActivity" />
         <activity android:name=".GameActivity" />
-        <activity android:name=".AlarmClockActivity"/>
-        <receiver android:name=".alarmClock.AlarmReceiver"/>
+        <activity android:name=".AlarmClockActivity" />
+
+        <receiver android:name=".alarmClock.AlarmReceiver" />
+
+        <activity android:name=".alarmClock.AlarmActivity"></activity>
     </application>
 
 </manifest>

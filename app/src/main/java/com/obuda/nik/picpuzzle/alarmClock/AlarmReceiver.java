@@ -18,7 +18,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         WakeLocker.acquire(context);
-        Intent i=new Intent(context, GameActivity.class);
+        Intent i=new Intent(context, AlarmActivity.class);
         i.putExtra("difficulty", intent.getStringExtra("difficulty"));
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(i);

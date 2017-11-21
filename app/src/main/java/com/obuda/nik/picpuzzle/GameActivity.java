@@ -1,5 +1,6 @@
 package com.obuda.nik.picpuzzle;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
@@ -70,8 +71,9 @@ public class GameActivity extends AppCompatActivity {
                 game.move(adapter.getTiles()[i].getID());
                 adapter.setTiles(game.toArray());
                 gridView.invalidateViews();
-                if(game.puzzleSolved())
-                    Toast.makeText(getBaseContext(),"Nyert",Toast.LENGTH_LONG).show();
+                if(game.puzzleSolved()) {
+                    finish();
+                }
             }
         });
 
@@ -90,5 +92,11 @@ public class GameActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable("gameState",this.game.getGameState());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        setResult(RESULT_OK);
     }
 }

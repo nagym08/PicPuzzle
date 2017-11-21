@@ -25,6 +25,7 @@ public class AlarmClockActivity extends AppCompatActivity {
     private static final int REQUEST_ID = 0;
     private static final String SHARED_PREF_ID="AlarmPrefs";
     Intent intent;
+    boolean alarmUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,6 @@ public class AlarmClockActivity extends AppCompatActivity {
         final Spinner spinner= (Spinner) findViewById(R.id.spinner);
         Switch sw= (Switch) findViewById(R.id.alarmSwitch);
         final TimePicker timePicker= (TimePicker) findViewById(R.id.timePicker);
-        final boolean alarmUp;
 
         ArrayAdapter<CharSequence> adapter = new ArrayAdapter<>
                 (this,android.R.layout.simple_spinner_item, Difficulty.getNames());
@@ -59,6 +59,7 @@ public class AlarmClockActivity extends AppCompatActivity {
         sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                alarmUp=!alarmUp;
                 if(isChecked) {
                     int[] time=getTimePicker(timePicker);
                     setNewAlarm(time[0], time[1],
