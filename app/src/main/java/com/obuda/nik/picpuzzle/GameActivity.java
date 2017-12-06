@@ -28,13 +28,14 @@ public class GameActivity extends AppCompatActivity {
     Button button;
     Game game;
     Bitmap picture;
+    Chronometer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        final Chronometer timer = (Chronometer) findViewById(R.id.timer);
+        timer  = (Chronometer) findViewById(R.id.timer);
 
         /////////////////////FOR ALARM CLOCK ////////////////////////////
         /////////////////////////////////////////////////////////////////
@@ -57,15 +58,16 @@ public class GameActivity extends AppCompatActivity {
 
         game.Init(difficulty, picture);
 
-        timer.start();
-
         if(savedInstanceState!=null){
             try {
                 this.game.loadGameState((GameState) savedInstanceState.getParcelable("gameState"));
+                timer.setBase(SystemClock.elapsedRealtime() - game.getElapsedTime());
             }catch (Exception e){
                 Log.d("Exception",e.getMessage());
             }
         }
+
+        timer.start();
 
         adapter=new ImageAdapter(this,game.toArray());
         gridView.setAdapter(adapter);
@@ -99,6 +101,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        game.setElapsedTime(SystemClock.elapsedRealtime() - timer.getBase());
         outState.putParcelable("gameState",this.game.getGameState());
     }
 

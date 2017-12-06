@@ -18,11 +18,19 @@ public class Game {
     private Tile[][] Table;
     private int side;
     private Difficulty difficulty;
+    private long elapsedTime;
 
     public Difficulty getDifficulty(){
         return this.difficulty;
     }
 
+    public long getElapsedTime() {
+        return elapsedTime;
+    }
+
+    public void setElapsedTime(long elapsedTime) {
+        this.elapsedTime = elapsedTime;
+    }
 
     public Game() {
         mixVar = new Random();
@@ -158,6 +166,7 @@ public class Game {
     public void Init(Difficulty difficulty, Bitmap picture) {
         this.side = difficulty.getValue();
         this.difficulty=difficulty;
+        this.elapsedTime=0;
 
         Bitmap[] picturePieces=slicePicture(picture,side);
 
@@ -224,7 +233,7 @@ public class Game {
     }
 
     public GameState getGameState(){
-        return new GameState(this.toArray(),this.difficulty);
+        return new GameState(this.toArray(),this.difficulty, this.elapsedTime);
     }
 
     public void loadGameState(GameState state) throws Exception{
@@ -243,6 +252,7 @@ public class Game {
                     id++;
                 }
             }
+            this.elapsedTime = state.getElapsedTime();
         }
     }
 }

@@ -12,10 +12,12 @@ import com.obuda.nik.picpuzzle.models.Tile;
 public class GameState implements Parcelable {
     private Difficulty difficulty;
     private int[] TilesOrder;
+    private long elapsedTime;
 
-    GameState(Tile[] Tiles, Difficulty difficulty){
+    GameState(Tile[] Tiles, Difficulty difficulty, long elapsedTime){
         this.TilesOrder=new int[difficulty.getValue()*difficulty.getValue()];
         this.difficulty=difficulty;
+        this.elapsedTime = elapsedTime;
 
         for (int i = 0; i < TilesOrder.length; i++) {
             this.TilesOrder[i]=Tiles[i].getID();
@@ -29,6 +31,9 @@ public class GameState implements Parcelable {
         return  this.TilesOrder;
     }
 
+    public long getElapsedTime() {
+        return elapsedTime;
+    }
 
     private GameState(Parcel in) {
         this.TilesOrder = in.createIntArray();
