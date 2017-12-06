@@ -3,6 +3,7 @@ package com.obuda.nik.picpuzzle;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -31,6 +33,8 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        final Chronometer timer = (Chronometer) findViewById(R.id.timer);
 
         /////////////////////FOR ALARM CLOCK ////////////////////////////
         /////////////////////////////////////////////////////////////////
@@ -53,6 +57,8 @@ public class GameActivity extends AppCompatActivity {
 
         game.Init(difficulty, picture);
 
+        timer.start();
+
         if(savedInstanceState!=null){
             try {
                 this.game.loadGameState((GameState) savedInstanceState.getParcelable("gameState"));
@@ -72,6 +78,7 @@ public class GameActivity extends AppCompatActivity {
                 adapter.setTiles(game.toArray());
                 gridView.invalidateViews();
                 if(game.puzzleSolved()) {
+                    timer.stop();
                     finish();
                 }
             }
@@ -83,6 +90,7 @@ public class GameActivity extends AppCompatActivity {
                 game.Init(game.getDifficulty(),picture);
                 adapter.setTiles(game.toArray());
                 gridView.invalidateViews();
+                timer.setBase(SystemClock.elapsedRealtime());
             }
         });
 

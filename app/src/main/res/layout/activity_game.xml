@@ -22,4 +22,12 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         />
+
+    <Chronometer
+        android:id="@+id/timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>
