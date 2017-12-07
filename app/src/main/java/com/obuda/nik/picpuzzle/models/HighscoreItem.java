@@ -1,6 +1,7 @@
 package com.obuda.nik.picpuzzle.models;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by nagym on 14/11/2017.
@@ -29,5 +30,10 @@ public class HighscoreItem {
         String bestTimeText = "";
         bestTimeText = mins + ":" + secs;
         return bestTimeText;
+    }
+
+    public void setBestTime(long timeElapsed){
+        mins = (int) TimeUnit.MILLISECONDS.toMinutes(timeElapsed);
+        secs = (int)(TimeUnit.MILLISECONDS.toSeconds(timeElapsed) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeElapsed)));
     }
 }
