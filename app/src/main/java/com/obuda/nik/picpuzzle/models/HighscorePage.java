@@ -1,6 +1,7 @@
 package com.obuda.nik.picpuzzle.models;
 
 import java.util.List;
+import java.util.Stack;
 
 /**
  * Created by nagym on 14/11/2017.
@@ -8,9 +9,9 @@ import java.util.List;
 
 public class HighscorePage {
     private String difficulty;
-    private List<HighscoreItem> highscores;
+    private Stack<HighscoreItem> highscores;
 
-    public HighscorePage(String difficulty, List<HighscoreItem> highscores) {
+    public HighscorePage(String difficulty, Stack<HighscoreItem> highscores) {
         this.difficulty = difficulty;
         this.highscores = highscores;
     }
@@ -23,11 +24,11 @@ public class HighscorePage {
         this.difficulty = difficulty;
     }
 
-    public List<HighscoreItem> getHighscores() {
+    public Stack<HighscoreItem> getHighscores() {
         return highscores;
     }
 
-    public void setHighscores(List<HighscoreItem> highscores) {
+    public void setHighscores(Stack<HighscoreItem> highscores) {
         this.highscores = highscores;
     }
 }

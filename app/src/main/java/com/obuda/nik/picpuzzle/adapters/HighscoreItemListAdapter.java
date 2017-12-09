@@ -10,6 +10,7 @@ import com.obuda.nik.picpuzzle.models.HighscoreItem;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * Created by nagym on 14/11/2017.
@@ -17,13 +18,13 @@ import java.util.List;
 
 public class HighscoreItemListAdapter extends BaseAdapter {
 
-    private List<HighscoreItem> highscores;
+    private Stack<HighscoreItem> highscores;
 
     public HighscoreItemListAdapter() {
-        this.highscores = new ArrayList<HighscoreItem>();
+        this.highscores = new Stack<HighscoreItem>();
     }
 
-    public HighscoreItemListAdapter(List<HighscoreItem> highscores) {
+    public HighscoreItemListAdapter(Stack<HighscoreItem> highscores) {
         this.highscores = highscores;
     }
 
@@ -51,13 +52,10 @@ public class HighscoreItemListAdapter extends BaseAdapter {
             myView = View.inflate(parent.getContext(), R.layout.highscore_item, null);
         }
 
-        TextView pictureNameText = (TextView) myView.findViewById(R.id.highscoreItemPictureName);
         TextView bestTimeText = (TextView) myView.findViewById(R.id.highscoreItemBestTime);
 
-        String pictureName = highscores.get(position).getPictureName();
         String bestTime = highscores.get(position).getBestTime();
 
-        pictureNameText.setText(pictureName);
         bestTimeText.setText(bestTime);
 
         return myView;
