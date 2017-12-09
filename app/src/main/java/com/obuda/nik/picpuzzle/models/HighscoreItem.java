@@ -1,6 +1,5 @@
 package com.obuda.nik.picpuzzle.models;
 
-import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -8,32 +7,25 @@ import java.util.concurrent.TimeUnit;
  */
 
 public class HighscoreItem {
-    private String pictureName;
-    private int mins;
-    private int secs;
 
-    public HighscoreItem(String pictureName, int mins, int secs) {
-        this.pictureName = pictureName;
-        this.mins = mins;
-        this.secs = secs;
+    private long timeInMillisec;
+
+    public HighscoreItem(long timeInMillisec) {
+        this.timeInMillisec = timeInMillisec;
     }
 
-    public String getPictureName() {
-        return pictureName;
+    public long getTimeInMillisec() {
+        return timeInMillisec;
     }
 
-    public void setPictureName(String pictureName) {
-        this.pictureName = pictureName;
+    public void setTimeInMillisec(long timeInMillisec) {
+        this.timeInMillisec = timeInMillisec;
     }
 
     public String getBestTime(){
-        String bestTimeText = "";
-        bestTimeText = mins + ":" + secs;
+        int mins = (int) TimeUnit.MILLISECONDS.toMinutes(timeInMillisec);
+        int secs = (int)(TimeUnit.MILLISECONDS.toSeconds(timeInMillisec) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeInMillisec)));
+        String bestTimeText = mins + ":" + secs;
         return bestTimeText;
-    }
-
-    public void setBestTime(long timeElapsed){
-        mins = (int) TimeUnit.MILLISECONDS.toMinutes(timeElapsed);
-        secs = (int)(TimeUnit.MILLISECONDS.toSeconds(timeElapsed) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeElapsed)));
     }
 }
