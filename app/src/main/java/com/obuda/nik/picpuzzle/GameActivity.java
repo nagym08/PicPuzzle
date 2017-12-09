@@ -2,6 +2,8 @@ package com.obuda.nik.picpuzzle;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +25,7 @@ import com.obuda.nik.picpuzzle.game.ImageFactory;
 import com.obuda.nik.picpuzzle.handlers.HighscoreHandler;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 
 public class GameActivity extends AppCompatActivity {
@@ -131,4 +134,47 @@ public class GameActivity extends AppCompatActivity {
         super.onDestroy();
         setResult(RESULT_OK);
     }
+
+    /*
+    private void setOrientation(Bitmap bitmapToAdjust, Uri imagePath) throws IOException {
+        ExifInterface exif = new ExifInterface(imagePath.getPath());
+
+        exif.setAttribute(ExifInterface.TAG_ORIENTATION, "3");
+        exif.saveAttributes();
+
+
+        int rotation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+
+        //int rotationInDegrees = exifToDegrees(rotation);
+        int rotationInDegrees = 90;
+
+        Matrix matrix = new Matrix();
+
+        matrix.preRotate(rotationInDegrees);
+
+
+        if(rotation != 0f){
+            matrix.preRotate(rotationInDegrees);
+        }
+
+        Bitmap adjustedBitmap = Bitmap.createBitmap(
+                bitmapToAdjust,
+                0,
+                0,
+                bitmapToAdjust.getWidth(),
+                bitmapToAdjust.getHeight(),
+                matrix,
+                true);
+
+        return adjustedBitmap;
+
+    }
+
+    private int exifToDegrees(int exifOrientation){
+        if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_90) { return 90; }
+        else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_180) {  return 180; }
+        else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_270) {  return 270; }
+        return 0;
+    }
+    */
 }

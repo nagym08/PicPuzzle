@@ -2,6 +2,8 @@ package com.obuda.nik.picpuzzle.game;
 
 import android.graphics.Bitmap;
 
+import com.obuda.nik.picpuzzle.exceptions.InvalidTileIDException;
+import com.obuda.nik.picpuzzle.exceptions.NoEmptyNeighbourTileException;
 import com.obuda.nik.picpuzzle.models.Tile;
 
 import java.util.Random;
@@ -118,7 +120,7 @@ public class Game {
         return array;
     }
 
-    private int[] findTile(int tileID) throws Exception {
+    private int[] findTile(int tileID) throws InvalidTileIDException {
         for (int i = 1; i <= side; i++) {
             for (int j = 1; j <= side; j++) {
                 if (Table[i][j].getID() == tileID)
@@ -128,10 +130,10 @@ public class Game {
 
         if (Table[side + 1][side].getID() == tileID)
             return new int[]{side + 1, side};
-        throw new Exception(); //TODO make custom InvalidTileID exception?
+        throw new InvalidTileIDException();
     }
 
-    private int[] findEmptyNeighbour(int[] baseCoordinates) throws Exception {
+    private int[] findEmptyNeighbour(int[] baseCoordinates) throws NoEmptyNeighbourTileException {
         int i = baseCoordinates[0];
         int j = baseCoordinates[1];
 
@@ -144,7 +146,7 @@ public class Game {
         if (Table[i + 1][j].getID() == EMPTY)
             return new int[]{i + 1, j};
 
-        throw new Exception(); //TODO make custom, NoEmptyNeighbourTile exception?
+        throw new NoEmptyNeighbourTileException();
     }
 
     private  Bitmap[] slicePicture(Bitmap picture, int side){

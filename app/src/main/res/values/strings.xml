@@ -9,4 +9,6 @@
     <string name="highscore_item_best_text">Best:</string>
     <string name="btn_mix">Mix it!</string>
     <string name="alarmClock_switch">Status</string>
+    <string name="difficultySelecterDialogTitle">Difficulty:</string>
+    <string name="imageSelecterDialogTitle">Browse photos?</string>
 </resources>
