@@ -2,6 +2,7 @@ package com.obuda.nik.picpuzzle;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +21,9 @@ import com.obuda.nik.picpuzzle.game.Game;
 import com.obuda.nik.picpuzzle.game.GameState;
 import com.obuda.nik.picpuzzle.game.ImageFactory;
 import com.obuda.nik.picpuzzle.handlers.HighscoreHandler;
+
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -47,7 +51,18 @@ public class GameActivity extends AppCompatActivity {
 
         final ImageAdapter adapter;
         Difficulty difficulty=Difficulty.valueOf(getIntent().getStringExtra("difficulty").toUpperCase());
-        Bitmap pic=BitmapFactory.decodeResource(getResources(),R.drawable.logo);
+        Uri picUri = getIntent().getParcelableExtra("pictureUri");
+        Bitmap pic = null;
+        if(picUri != null){
+            try {
+                InputStream image_stream = getContentResolver().openInputStream(picUri);
+                pic = BitmapFactory.decodeStream(image_stream);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }else {
+            pic=BitmapFactory.decodeResource(getResources(),R.drawable.logo);
+        }
 
         gridView= (GridView) findViewById(R.id.gridView);
         button= (Button) findViewById(R.id.newGame_btn);
