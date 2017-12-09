@@ -1,6 +1,5 @@
 package com.obuda.nik.picpuzzle;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.SystemClock;
@@ -14,13 +13,13 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import com.obuda.nik.picpuzzle.adapters.ImageAdapter;
 import com.obuda.nik.picpuzzle.game.Difficulty;
 import com.obuda.nik.picpuzzle.game.Game;
 import com.obuda.nik.picpuzzle.game.GameState;
 import com.obuda.nik.picpuzzle.game.ImageFactory;
+import com.obuda.nik.picpuzzle.handlers.HighscoreHandler;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -29,6 +28,7 @@ public class GameActivity extends AppCompatActivity {
     Game game;
     Bitmap picture;
     Chronometer timer;
+    HighscoreHandler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +67,7 @@ public class GameActivity extends AppCompatActivity {
             }
         }
 
+        handler = new HighscoreHandler(this, game.getDifficulty());
         timer.start();
 
         adapter=new ImageAdapter(this,game.toArray());
@@ -81,6 +82,11 @@ public class GameActivity extends AppCompatActivity {
                 gridView.invalidateViews();
                 if(game.puzzleSolved()) {
                     timer.stop();
+                    long elapsedTime = SystemClock.elapsedRealtime() - timer.getBase();
+                    if(handler.isTimeHighscore(elapsedTime)){
+                        handler.SaveHighscore(elapsedTime);
+                        handler.SavePreferences();
+                    }
                     finish();
                 }
             }
