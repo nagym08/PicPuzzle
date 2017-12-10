@@ -27,6 +27,7 @@ public class AlarmActivity extends AppCompatActivity {
 
         Intent intent=new Intent(this, GameActivity.class);
         intent.putExtra("difficulty",getIntent().getStringExtra("difficulty"));
+        intent.putExtra("alarm",true);
 
         audioManager= (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         if(audioManager.getStreamVolume(AudioManager.STREAM_RING)==0){

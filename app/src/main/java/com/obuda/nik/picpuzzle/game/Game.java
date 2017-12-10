@@ -217,9 +217,8 @@ public class Game {
             Table[srcCoordinates[0]][srcCoordinates[1]] = Table[dstCoordinates[0]][dstCoordinates[1]];
             Table[dstCoordinates[0]][dstCoordinates[1]] = temp;
 
-        } catch (Exception e) {
-
-        }
+        } catch (NoEmptyNeighbourTileException e) {}
+          catch(InvalidTileIDException e) {}
 
     }
 

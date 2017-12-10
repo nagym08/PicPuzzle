@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.obuda.nik.picpuzzle.adapters.ImageAdapter;
 import com.obuda.nik.picpuzzle.game.Difficulty;
@@ -36,6 +37,7 @@ public class GameActivity extends AppCompatActivity {
     Bitmap picture;
     Chronometer timer;
     HighscoreHandler handler;
+    ImageAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +54,6 @@ public class GameActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         ////////////////////////////////////////////////////////////////
 
-        final ImageAdapter adapter;
         Difficulty difficulty=Difficulty.valueOf(getIntent().getStringExtra("difficulty").toUpperCase());
         Uri picUri = getIntent().getParcelableExtra("pictureUri");
         Bitmap pic = null;
@@ -86,13 +87,48 @@ public class GameActivity extends AppCompatActivity {
         }
 
         handler = new HighscoreHandler(this, game.getDifficulty());
-        timer.start();
+
+        if(!game.puzzleSolved())
+            timer.start();
 
         adapter=new ImageAdapter(this,game.toArray());
         gridView.setAdapter(adapter);
         gridView.setNumColumns(difficulty.getValue());
 
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        if(!game.puzzleSolved())
+            gridView.setOnItemClickListener(this.itemClickListener());
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                game.Init(game.getDifficulty(),picture);
+                adapter.setTiles(game.toArray());
+                gridView.invalidateViews();
+                gridView.setOnItemClickListener(GameActivity.this.itemClickListener());
+                timer.setBase(SystemClock.elapsedRealtime());
+                timer.start();
+            }
+        });
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if(!game.puzzleSolved())
+            game.setElapsedTime(SystemClock.elapsedRealtime() - timer.getBase());
+        outState.putParcelable("gameState",this.game.getGameState());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        setResult(RESULT_OK);
+    }
+
+    private AdapterView.OnItemClickListener itemClickListener()
+    {
+        return new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 game.move(adapter.getTiles()[i].getID());
@@ -105,34 +141,16 @@ public class GameActivity extends AppCompatActivity {
                         handler.SaveHighscore(elapsedTime);
                         handler.SavePreferences();
                     }
-                    finish();
+                    game.setElapsedTime(elapsedTime);
+                    if(getIntent().getBooleanExtra("alarm",false))
+                        finish();
+                    else{
+                        gridView.setOnItemClickListener(null);
+                        Toast.makeText(GameActivity.this,"Well Done!",Toast.LENGTH_SHORT).show(); //TODO strings.xml
+                    }
                 }
             }
-        });
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view){
-                game.Init(game.getDifficulty(),picture);
-                adapter.setTiles(game.toArray());
-                gridView.invalidateViews();
-                timer.setBase(SystemClock.elapsedRealtime());
-            }
-        });
-
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        game.setElapsedTime(SystemClock.elapsedRealtime() - timer.getBase());
-        outState.putParcelable("gameState",this.game.getGameState());
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        setResult(RESULT_OK);
+        };
     }
 
     /*
