@@ -10,7 +10,7 @@ import android.util.DisplayMetrics;
 public class ImageFactory {
 
     public  static Bitmap modifyImage(Bitmap bitmap, DisplayMetrics metrics, int orientation){
-        float ratio=(float)2/3; //FIXME ratio should depends on difficulty (difficulty ~ 1 / tile size)
+        float ratio=(float)2/3;
         int screenWidth=metrics.widthPixels;
         int screenHeight=metrics.heightPixels;
 

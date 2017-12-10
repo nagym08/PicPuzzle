@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import com.obuda.nik.picpuzzle.R;
 import com.obuda.nik.picpuzzle.models.Tile;
 
 /**
@@ -21,6 +22,7 @@ public class ImageAdapter extends BaseAdapter {
     private Tile[] Tiles;
     private Context context;
     private int borderWidth;
+    private int tileBorderColor;
 
     public ImageAdapter(Context context, Tile[] Tiles){
         this.context=context;
@@ -28,6 +30,8 @@ public class ImageAdapter extends BaseAdapter {
 
         Resources r=context.getResources();
         this.borderWidth= (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, r.getDisplayMetrics());
+
+        this.tileBorderColor=r.getColor(R.color.tileBorder);
     }
 
     public Tile[] getTiles(){
@@ -70,7 +74,7 @@ public class ImageAdapter extends BaseAdapter {
         if(Tiles[i].getPicture()!=null) {
             viewHolder.view.setImageBitmap(Tiles[i].getPicture());
             viewHolder.view.setImageAlpha(255);
-            viewHolder.view.setBackgroundColor(Color.parseColor("#000000")); //TODO values/styles.xml border color?
+            viewHolder.view.setBackgroundColor(tileBorderColor);
             viewHolder.view.setPadding(borderWidth,borderWidth,borderWidth,borderWidth);
 
         }

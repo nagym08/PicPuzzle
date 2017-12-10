@@ -56,6 +56,9 @@ public class HighscoreItemListAdapter extends BaseAdapter {
 
         String bestTime = highscores.get(position).getBestTime();
 
+        int sec=Integer.parseInt(bestTime.substring(bestTime.indexOf(":")+1));
+        bestTime=bestTime.substring(0,bestTime.indexOf(':')+1).concat(String.format("%02d",sec));
+
         bestTimeText.setText(bestTime);
 
         return myView;
