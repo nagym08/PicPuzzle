@@ -11,4 +11,5 @@
     <string name="alarmClock_switch">Status</string>
     <string name="difficultySelecterDialogTitle">Difficulty:</string>
     <string name="imageSelecterDialogTitle">Browse photos?</string>
+    <string name="wellDoneText">Well Done!</string>
 </resources>

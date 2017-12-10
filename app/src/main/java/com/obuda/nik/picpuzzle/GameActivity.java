@@ -146,7 +146,7 @@ public class GameActivity extends AppCompatActivity {
                         finish();
                     else{
                         gridView.setOnItemClickListener(null);
-                        Toast.makeText(GameActivity.this,"Well Done!",Toast.LENGTH_SHORT).show(); //TODO strings.xml
+                        Toast.makeText(GameActivity.this,R.string.wellDoneText,Toast.LENGTH_SHORT).show();
                     }
                 }
             }
